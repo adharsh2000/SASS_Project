@@ -1,12 +1,10 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import ThemeSwitcher from "@/components/theme/ThemeSwicher";
 
-const Home = () => {
+export default function Home() {
   return (
-    <div>
-      <Button>Hello</Button>
-    </div>
+    <main className="p-4 bg-secondary">
+      <h1 className="text-2xl">Next.js App with Dark Mode</h1>
+      <ThemeSwitcher />
+    </main>
   );
-};
-
-export default Home;
+}

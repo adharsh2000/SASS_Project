@@ -55,8 +55,7 @@
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem
-  ;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -72,7 +71,9 @@
 
     --sidebar-border: 220 13% 91%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%}
+    --sidebar-ring: 217.2 91.2% 59.8%
+  }
+
   .dark {
 
     --background: 240 10% 3.9%;
@@ -121,8 +122,7 @@
 
     --chart-4: 280 65% 60%;
 
-    --chart-5: 340 75% 55%
-  ;
+    --chart-5: 340 75% 55%;
 
     --sidebar-background: 240 5.9% 10%;
 
@@ -138,7 +138,41 @@
 
     --sidebar-border: 240 3.7% 15.9%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%}
+    --sidebar-ring: 217.2 91.2% 59.8%
+  }
+
+  /* 🌟 Theme: Blue */
+  .light.theme-blue {
+    --primary: 220 90% 55%;
+    --secondary: 220 70% 45%;
+  }
+
+  .dark.theme-blue {
+    --primary: 220 80% 40%;
+    --secondary: 220 60% 30%;
+  }
+
+  /* 🌟 Theme: Green */
+  .light.theme-green {
+    --primary: 120 80% 45%;
+    --secondary: 120 70% 35%;
+  }
+
+  .dark.theme-green {
+    --primary: 120 70% 35%;
+    --secondary: 120 60% 25%;
+  }
+
+  /* 🌟 Theme: Red */
+  .light.theme-red {
+    --primary: 0 80% 60%;
+    --secondary: 0 70% 50%;
+  }
+
+  .dark.theme-red {
+    --primary: 0 70% 50%;
+    --secondary: 0 60% 40%;
+  }
 }
 
 
@@ -147,6 +181,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
