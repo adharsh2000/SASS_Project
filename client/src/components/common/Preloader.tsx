@@ -9,7 +9,7 @@ export default function Preloader() {
 
   useEffect(() => {
     setLoading(true); // Start loading
-    const timeout = setTimeout(() => setLoading(false), 1000); // Simulate delay
+    const timeout = setTimeout(() => setLoading(false), 100); // Simulate delay
 
     return () => clearTimeout(timeout);
   }, [pathname]); // Runs when route changes
