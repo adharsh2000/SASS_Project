@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import SmoothExpandCard from "@/components/common/SmoothExpandCard";
 
 const WelcomePage = () => {
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -16,7 +17,7 @@ const WelcomePage = () => {
         console.log("✅ Next.js Fully Loaded!");
         setTimeout(() => {
           setIsContentLoading(false);
-        },100)
+        }, 100);
       };
 
       // Detect full load event
@@ -54,26 +55,14 @@ const WelcomePage = () => {
       <p className="text-2xl font-semibold">This is a Next.js app.</p>
 
       {/* 🔹 Expanding Content Box */}
-      <motion.div
-        className="w-full max-w-md overflow-hidden bg-white shadow-md rounded-lg mt-4 p-4"
-        initial={{ height: 50, opacity: 0 }}
-        animate={{
-          height: isContentLoading ? 50 : "auto",
-          opacity: isContentLoading ? 0.5 : 1,
-        }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-      >
-        {isContentLoading ? (
-          <p className="text-center text-gray-500">Loading...</p>
-        ) : (
-          <div className="space-y-2">
-            <p className="text-lg font-medium">John Doe</p>
-            <p className="text-gray-600">5q9lM@example.com</p>
-            <p className="text-gray-600">123 Main St, Anytown, USA</p>
-            <p className="text-gray-600">123-456-7890</p>
-          </div>
-        )}
-      </motion.div>
+      <SmoothExpandCard isContentLoading={isContentLoading}>
+        <div className="space-y-2">
+          <p className="text-lg font-medium">John Doe</p>
+          <p className="text-gray-600">5q9lM@example.com</p>
+          <p className="text-gray-600">123 Main St, Anytown, USA</p>
+          <p className="text-gray-600">123-456-7890</p>
+        </div>
+      </SmoothExpandCard>
     </div>
   );
 };
