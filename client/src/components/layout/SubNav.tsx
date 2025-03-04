@@ -10,7 +10,7 @@ const SubNav = () => {
   const activeNav = navData.find((item) => pathname.startsWith(item.href));
 
   return (
-    <nav className="p-4 bg-gray-100 border-b">
+    <nav className="p-4 bg-gray-100 border-b w-full">
       <ul className="flex space-x-4">
         {activeNav?.nav.map((subItem) => (
           <li
