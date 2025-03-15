@@ -1,3 +1,4 @@
+"use client";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -13,6 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import React from "react";
 
 export default function PageLayout({
@@ -20,6 +22,8 @@ export default function PageLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isMobile = useIsMobile();
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -43,20 +47,23 @@ export default function PageLayout({
             </Breadcrumb>
           </div>
         </header>
-        <div className="w-full px-4 py-3 flex gap-3 text-sm">
-          <span className="opacity-50 hover:opacity-100 transition-opacity pb-1 border-b-2 border-primary font-semibold">
-            <a href="#">Home</a>
-          </span>
-          <span>
-            <a href="#">Home</a>
-          </span>
-          <span>
-            <a href="#">Home</a>
-          </span>
-          <span>
-            <a href="#">Home</a>
-          </span>
-        </div>
+
+        {!isMobile && (
+          <div className="w-full px-4 py-3 flex gap-3 text-sm">
+            <span className="opacity-50 hover:opacity-100 transition-opacity pb-1 border-b-2 border-primary font-semibold">
+              <a href="#">Home</a>
+            </span>
+            <span>
+              <a href="#">Home</a>
+            </span>
+            <span>
+              <a href="#">Home</a>
+            </span>
+            <span>
+              <a href="#">Home</a>
+            </span>
+          </div>
+        )}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>

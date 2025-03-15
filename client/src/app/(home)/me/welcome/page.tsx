@@ -7,25 +7,45 @@ const WelcomePage = () => {
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isContentLoading, setIsContentLoading] = useState(true);
 
+  // useEffect(() => {
+  //   // Ensure this runs only in the client-side
+  //   if (typeof window !== "undefined") {
+  //     console.log("🟡 Next.js Client Hydration Started...");
+
+  //     // When full page (including assets) is loaded
+  //     const handleLoad = () => {
+  //       console.log("✅ Next.js Fully Loaded!");
+  //       setTimeout(() => {
+  //         setIsContentLoading(false);
+  //       }, 100);
+  //     };
+
+  //     // Detect full load event
+  //     window.addEventListener("load", handleLoad);
+
+  //     return () => {
+  //       window.removeEventListener("load", handleLoad);
+  //     };
+  //   }
+  // }, []);
+
   useEffect(() => {
-    // Ensure this runs only in the client-side
-    if (typeof window !== "undefined") {
-      console.log("🟡 Next.js Client Hydration Started...");
-
-      // When full page (including assets) is loaded
-      const handleLoad = () => {
-        console.log("✅ Next.js Fully Loaded!");
-        setTimeout(() => {
-          setIsContentLoading(false);
-        }, 100);
+    if (document.readyState !== 'complete') {
+      const handler = () => {
+        console.log('load');
+        setIsPageLoading(false);
       };
-
-      // Detect full load event
-      window.addEventListener("load", handleLoad);
+      window.addEventListener('load', handler);
 
       return () => {
-        window.removeEventListener("load", handleLoad);
+        window.removeEventListener('load', handler);
       };
+    } else {
+      const timeout = window.setTimeout(() => {
+        console.log('timeout');
+        setIsPageLoading(false);
+      }, 0);
+      return () => window.clearTimeout(timeout);
     }
   }, []);
 
