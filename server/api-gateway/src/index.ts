@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { config } from "./config/config";
 import proxy from "express-http-proxy";
+import { errorHandler } from "./middlewares/errorHandler.middleware";
 
 const app: Application = express();
 
@@ -27,7 +28,7 @@ app.use(
   proxy("http://localhost:4001", {
     ...proxyOptions,
     proxyReqBodyDecorator: (proxyReqOpts, srcReq) => {
-    //   proxyReqOpts.headers["Content-Type"] = "application/json";
+      //   proxyReqOpts.headers["Content-Type"] = "application/json";
       return proxyReqOpts;
     },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
@@ -39,6 +40,8 @@ app.use(
     },
   })
 );
+
+app.use(errorHandler);
 
 app.listen(config.PORT, () => {
   console.log(`API Gateway running on port ${config.PORT}`);
