@@ -19,6 +19,8 @@ const proxyOptions = {
     res.status(500).json({
       message: `Internal server error`,
       error: err.message,
+      data:null,
+      success:false
     });
   },
 };
