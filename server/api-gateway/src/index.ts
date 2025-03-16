@@ -5,6 +5,7 @@ import { config } from "./config/config";
 import proxy from "express-http-proxy";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import fetchTenantDBURI from "./middlewares/tenantDb.middleware";
+import onboardingroutes from "./routes/onboarding.routes";
 
 const app: Application = express();
 
@@ -30,6 +31,8 @@ const proxyOptions = {
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({ message: "API Gateway is running this is from api gateway and we can confirm it! yaay" });
 });
+
+app.use('/v1/onboarding', onboardingroutes);
 
 app.use(
   "/v1/auth",
