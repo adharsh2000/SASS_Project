@@ -18,9 +18,13 @@ async function seedTenant() {
 
     await db.asPromise();
 
+    // delete all tenants
+    await TenantModel.deleteMany({});
+
     const tenant = new TenantModel({
       tenant: generateTenant(),
-      dbName: "superadmin",
+      tenantName: "superadmin",
+      dbName: "SAAS_SUPER_ADMIN",
     });
 
     await tenant.save();
@@ -30,6 +34,8 @@ async function seedTenant() {
     );
   } catch (error) {
     console.error(`Error seeding tenant: ${error}`);
+  } finally {
+    await mongoose.disconnect();
   }
 }
 

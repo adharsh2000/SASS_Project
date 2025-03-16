@@ -2,6 +2,7 @@ import { Document, model, Schema } from "mongoose";
 
 export interface ItenantSchema extends Document {
   tenant: string;
+  tenantName: string;
   dbName: string;
   createdAt: Date;
   updatedAt: Date;
@@ -9,8 +10,19 @@ export interface ItenantSchema extends Document {
 
 const tenantSchema = new Schema<ItenantSchema>(
   {
-    tenant: String,
-    dbName: String,
+    tenant: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    tenantName: {
+      type: String,
+      required: true,
+    },
+    dbName: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
