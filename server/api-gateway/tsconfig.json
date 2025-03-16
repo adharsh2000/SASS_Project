@@ -8,6 +8,6 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true
     },
-    "include": ["src/**/*.ts", "index.ts", "seed.ts"],
+    "include": ["src/**/*.ts", "index.ts", "seed.ts", "@types"],
     "exclude": ["node_modules"]
 }
