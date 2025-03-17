@@ -12,15 +12,21 @@ type AuthRequest = Request & {
 // Middleware: Fetch tenant DB URI
 async function fetchTenantDBURI(req: any, res: any, next: any) {
   try {
-    const host = req.headers?.host; // Example: "tenant1.yoursaas.com"
-    const tenantArray = host?.split("."); // Extract tenant name
-    if (!tenantArray)
-      return res.status(400).json({ message: "Tenant not found" });
-    if (tenantArray.length < 2)
-      return res.status(400).json({ message: "Tenant not found" });
-    const tenant = tenantArray[0];
+    let tenant = req.headers["x-tenant"];
 
-    if (!tenant) return res.status(400).json({ message: "Tenant not found" });
+    if (!tenant) {
+      return res.status(400).json({ message: "Tenant not found" });
+    }
+
+    // const host = req.headers?.host; // Example: "tenant1.yoursaas.com"
+    // const tenantArray = host?.split("."); // Extract tenant name
+    // if (!tenantArray)
+    //   return res.status(400).json({ message: "Tenant not found" });
+    // if (tenantArray.length < 2)
+    //   return res.status(400).json({ message: "Tenant not found" });
+    // const tenant = tenantArray[0];
+
+    // if (!tenant) return res.status(400).json({ message: "Tenant not found" });
 
     // // Check Redis cache first
     // let dbURI = await redis.get(`tenant:${tenant}`);
@@ -53,14 +59,13 @@ async function fetchTenantDBURI(req: any, res: any, next: any) {
     // async function getTenantData(tenant: string) {
     try {
       await db.asPromise();
-      const tenantData = await TenantModel.findOne({ tenantName: tenant });
+      const tenantData = await TenantModel.findOne({ tenant });
 
       if (!tenantData) {
         res
           .status(404)
-          .json({ success: false, message: "Tenant not found from db", data: null });
+          .json({ success: false, message: "Tenant not found", data: null });
       } else {
-        req.tenantID = tenantData?._id;
         console.log("Tenant Data  from db:", tenantData);
       }
     } catch (error) {
@@ -78,7 +83,7 @@ async function fetchTenantDBURI(req: any, res: any, next: any) {
     //     .status(404)
     //     .json({ message: "Tenant not found in SuperAdmin DB" });
 
-    // req.tenant = tenant;
+    req.tenant = tenant;
     // req.dbURI = dbURI; // Attach DB URI to the request
     next();
   } catch (error) {

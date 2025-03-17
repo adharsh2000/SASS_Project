@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "service:api-gateway":"cd api-gateway && pnpm run dev",
+    "service:onboarding-service":"cd onboarding-service && pnpm run dev",
     "service:auth-service":"cd auth-service && pnpm run dev",
-    "dev": "concurrently \"npm run service:api-gateway\" \"npm run service:auth-service\""
+    "dev": "concurrently \"npm run service:api-gateway\" \"npm run service:auth-service\" \"npm run service:onboarding-service\" "
   },
   "keywords": [],
   "author": "",

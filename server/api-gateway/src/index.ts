@@ -35,9 +35,37 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 // app.use('/v1/onboarding', onboardingroutes);
 
 app.use(
-  "/v1/auth",
+  "/v1/onboarding",
   fetchTenantDBURI,
   proxy("http://localhost:4001", {
+    ...proxyOptions,
+    proxyReqOptDecorator: (proxyReqOpts, srcReq: any) => {
+      // Ensure headers exist before modifying them
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+
+      // proxyReqOpts.headers["Content-Type"] = "application/json";
+
+      // Set the X-Tenant header if tenant exists in srcReq
+      if (srcReq?.tenant) {
+        proxyReqOpts.headers["x-tenant"] = String(srcReq.tenant);
+      }
+
+      return proxyReqOpts; 
+    },
+    userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+      console.log(
+        `Response received from Identity service: ${proxyRes.statusCode}`
+      );
+
+      return proxyResData;
+    },
+  })
+);
+
+app.use(
+  "/v1/auth",
+  fetchTenantDBURI,
+  proxy("http://localhost:4002", {
     ...proxyOptions,
     proxyReqOptDecorator: (proxyReqOpts, srcReq: any) => {
       // Ensure headers exist before modifying them
