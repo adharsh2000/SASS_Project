@@ -19,6 +19,10 @@ export const createTenant = async (
       return;
     }
 
+    const dbName = `SAAS_${tenantName.toUpperCase()}`;
+
+    
+
     res.status(200).json({ message: "Tenant created successfully" });
   } catch (error) {
     next(error);

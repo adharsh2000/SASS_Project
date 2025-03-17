@@ -14,6 +14,6 @@ app.get("/api/auth", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({ message: "Auth Service is running this is from auth service and we can confirm it! yaay" });
 });
 
-app.listen(4002, () => {
+app.listen(4001, () => {
   console.log(`Auth Service running on port 4001`);
 });

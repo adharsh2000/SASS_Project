@@ -1,4 +1,5 @@
 import { Document, model, Schema } from "mongoose";
+import { generateTenant } from "../utils/functions";
 
 export interface ItenantSchema extends Document {
   tenant: string;
@@ -12,7 +13,9 @@ const tenantSchema = new Schema<ItenantSchema>(
   {
     tenant: {
       type: String,
-      required: true,
+      default: function () {
+        return generateTenant();
+      },
       unique: true,
     },
     tenantName: {
